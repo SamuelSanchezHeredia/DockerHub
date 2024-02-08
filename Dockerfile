@@ -1,20 +1,17 @@
-# Usa una imagen base de Node.js
-FROM node:14
+# Usa una imagen base de Python
+FROM python:3.9
 
-# Establece el directorio de trabajo en /app
+# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copia el archivo package.json y package-lock.json a /app
-COPY package*.json ./
-
-# Instala las dependencias de la aplicación
-RUN npm install
-
-# Copia el resto de la aplicación a /app
+# Copia los archivos de tu aplicación al contenedor
 COPY . .
 
-# Expone el puerto 3000 en el contenedor
-EXPOSE 3000
+# Instala las dependencias (si tienes un archivo requirements.txt)
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Comando para ejecutar la aplicación
-CMD ["npm", "start"]
+# Expone el puerto en el que se ejecutará tu aplicación
+EXPOSE 8000
+
+# Comando para ejecutar tu aplicación (ajústalo según tus necesidades)
+CMD ["python", "app.py"]
